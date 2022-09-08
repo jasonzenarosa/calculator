@@ -21,15 +21,34 @@ function divide(x, y) {
 };
 
 let screen = document.querySelector('.screen');
-let num1;
-let num2;
+let storedNum
 let operator;
 
 function numberButtonPress(num) {
     let cur = screen.innerHTML;
-    cur = Number(cur) * 10 + num;
-    cur = String(cur);
-    screen.textContent = cur;
+    if (cur === 'ERROR') cur = '0'; 
+    if (cur.length < 8) {
+        if (Number.isInteger(Number(cur)) && cur.slice(-1) !== '.') {
+            cur = Number(cur) * 10 + num;
+            cur = String(cur);
+        } else {
+            console.log('else')
+            cur = cur + String(num);
+        };
+        screen.textContent = cur;
+    };
+};
+
+function clearScreen() {
+    screen.textContent = String(0)
+};
+
+function setScreen (num) {
+    screen.textContent = String(num)
+}
+
+function getNumber() {
+    return Number(screen.innerHTML)
 };
 
 const numberStrings = [
@@ -45,22 +64,35 @@ const numberStrings = [
     '.nine',
 ];
 
+const operatorStrings = {
+    '.add': add,
+    '.subtract': subtract,
+    '.divide': divide,
+    '.multiply': multiply,
+};
+
 for (let i = 0; i < 10; i++) {
     let numButton = document.querySelector(numberStrings[i]);
     numButton.addEventListener('click', _ => numberButtonPress(i));
 };
 
-// const operatorStrings = {
-//     '.add': add,
-//     '.subtract': subtract,
-//     '.divide': divide,
-//     '.multiply': multiply,
-// };
+for (const i in operatorStrings) {
+    let operatorButton = document.querySelector(i);
+    operatorButton.addEventListener('click', _ => {
+        storedNum = getNumber();
+        operator = operatorStrings[i];
+        clearScreen();
+    });
+};
 
-// for (const i in operatorStrings) {
-//     let operatorButton = document.querySelector(i);
-//     operatorButton.addEventListener('click', _ => {
-    
-//     });
-// };
+document.querySelector('.clear').addEventListener('click', clearScreen)
+
+document.querySelector('.decimal').addEventListener('click', _ => {
+    screen.textContent = screen.innerHTML + '.'
+})
+
+document.querySelector('.equals').addEventListener('click', _ => {
+    let answer = operate(storedNum, getNumber(), operator)
+    setScreen(answer)
+});
 

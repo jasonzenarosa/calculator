@@ -9,13 +9,27 @@ body {
     height: 100vh;
     width: 100vw;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
+    background-color: #a37b73;
 }
 
+.calc-container {
+    background-color: #3F292B;
+    border-radius: 15px;
+    margin-bottom: 15px;
+}
+
+.calc-container div {
+    margin: 8px;
+    border-radius: 15px;
+}
 .screen {
-    font-size: 85px;
+    font-size: 80px;
     text-align: right;
+    background-color: #DBBEA1;
+    border: 2px solid #3F292B;
 }
 
 .buttons {
@@ -28,6 +42,15 @@ button {
     flex: 1 0 auto;
     width: 99px;
     height: 99px;
+    border-radius: 15px;
+    color: white;
+    background-color: #db7f67;
+    border: 4px solid #3F292B;
+    font-size: 24px;
+}
+
+.add, .subtract, .multiply, .divide {
+    background-color: #d34f73;
 }
 
 .firstRow {
@@ -48,4 +71,8 @@ button {
 
 .equals {
     order: 5;
+}
+
+.footer {
+    font-size: 16px;
 }
